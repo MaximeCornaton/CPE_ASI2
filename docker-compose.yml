@@ -1,0 +1,8 @@
+version: "3"
+
+services:
+  service_statique:
+    build:
+      context: ./ServiceStatique # Le chemin vers le répertoire contenant le Dockerfile
+    ports:
+      - "80:80" # Mapping du port hôte sur le port du conteneur Nginx
