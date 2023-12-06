@@ -1,8 +1,30 @@
 version: "3"
 
 services:
-  service_statique:
-    build:
-      context: ./StaticService
+  userservice:
+    build: ./UserService
+    # Autres paramètres spécifiques au service User
+
+  cardservice:
+    build: ./CardService
+    # Autres paramètres spécifiques au service Card
+
+  storeservice:
+    build: ./StoreService
+    # Autres paramètres spécifiques au service Store
+
+  staticservice:
+    build: ./StaticService
+    # Autres paramètres spécifiques au service statique
+
+  nginx:
+    image: nginx:latest
     ports:
-      - "80:80" # Mapping du port hôte sur le port du conteneur Nginx
+      - "80:80" # Port pour le reverse proxy NGINX
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf # Configuration NGINX
+    depends_on:
+      - userservice
+      - cardservice
+      - storeservice
+      - staticservice
