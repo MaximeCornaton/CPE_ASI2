@@ -41,3 +41,13 @@ docker-compose up -d
 # Vérification de l'état des conteneurs
 echo "Vérification de l'état des conteneurs..."
 docker-compose ps
+
+
+
+
+# Démarrage du serveur Vite après le démarrage des conteneurs
+echo "Démarrage du serveur Vite..."
+
+cd StaticService/
+npm install
+npm run dev

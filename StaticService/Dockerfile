@@ -1,5 +1,8 @@
-# Utilisation de l'image officielle Nginx
-FROM nginx:latest
+# Utiliser l'image Nginx officielle comme base
+FROM nginx:1.21
 
-# Copie du fichier de configuration personnalisé dans le conteneur
+# Copier votre fichier de configuration personnalisé nginx.conf dans le conteneur
 COPY nginx.conf /etc/nginx/nginx.conf
+
+# Exposer le port 80
+EXPOSE 80
