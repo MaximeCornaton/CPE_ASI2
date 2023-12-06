@@ -34,6 +34,18 @@ check_docker_compose
 echo "Construction des images Docker..."
 docker-compose build
 
+# Construction du projet Maven
+echo "Construction du projet Maven..."
+cd UserService/  # Aller dans le répertoire du projet Maven
+mvn package       # Exécuter la commande 'mvn package'
+cd ..             # Retourner au répertoire racine
+cd StoreService/  # Aller dans le répertoire du projet Maven
+mvn package       # Exécuter la commande 'mvn package'
+cd ..             # Retourner au répertoire racine
+cd CardService/   # Aller dans le répertoire du projet Maven
+mvn package       # Exécuter la commande 'mvn package'
+cd ..             # Retourner au répertoire racine
+
 # Démarrage des conteneurs
 echo "Démarrage des conteneurs..."
 docker-compose up -d
@@ -42,12 +54,9 @@ docker-compose up -d
 echo "Vérification de l'état des conteneurs..."
 docker-compose ps
 
-
-
-
 # Démarrage du serveur Vite après le démarrage des conteneurs
-#echo "Démarrage du serveur Vite..."
+echo "Démarrage du serveur Vite..."
 
-#cd StaticService/
-#npm install
-#npm run dev
+cd StaticService/
+npm install
+npm run dev
