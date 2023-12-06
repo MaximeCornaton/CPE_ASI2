@@ -2,20 +2,24 @@ version: "3"
 
 services:
   userservice:
-    build: ./UserService
-    # Autres paramètres spécifiques au service User
+    build:
+      context: ./UserService
+      dockerfile: Dockerfile
 
   cardservice:
-    build: ./CardService
-    # Autres paramètres spécifiques au service Card
+    build:
+      context: ./CardService
+      dockerfile: Dockerfile
 
   storeservice:
-    build: ./StoreService
-    # Autres paramètres spécifiques au service Store
+    build:
+      context: ./StoreService
+      dockerfile: Dockerfile
 
   staticservice:
-    build: ./StaticService
-    # Autres paramètres spécifiques au service statique
+    build:
+      context: ./StaticService
+      dockerfile: Dockerfile
 
   nginx:
     image: nginx:latest
