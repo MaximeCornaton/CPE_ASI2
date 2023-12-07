@@ -1,4 +1,4 @@
-package com.cardapp.cardservice.rest;
+package com.userapp.userservice.rest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,19 +13,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.cardapp.cardservice.service.CardModelService;
 
-
+//ONLY FOR TEST NEED ALSO TO ALLOW CROOS ORIGIN ON WEB BROWSER SIDE
+@CrossOrigin
 @RestController
+public class UserRestController {
 
-public class CardRestController {
 
-    private final CardModelService cardModelService;
 
-    public CardRestController(CardModelService cardModelService) {
-        this.cardModelService=cardModelService;
-    }
-
-    
 
 }

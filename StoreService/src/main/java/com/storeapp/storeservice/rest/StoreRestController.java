@@ -1,7 +1,6 @@
 package com.storeapp.storeservice.rest;
 
-import com.cpe.springboot.store.model.StoreOrder;
-import com.cpe.springboot.store.model.StoreTransaction;
+import com.storeapp.storeservice.service.StoreService;
 
 import java.util.List;
 
@@ -18,22 +17,6 @@ public class StoreRestController {
 
     public StoreRestController(StoreService storeService) {
         this.storeService = storeService;
-    }
-
-    @RequestMapping(method = RequestMethod.POST, value = "/buy")
-    private boolean getAllCards(@RequestBody StoreOrder order) {
-        return storeService.buyCard(order.getUser_id(), order.getCard_id());
-
-    }
-
-    @RequestMapping(method = RequestMethod.POST, value = "/sell")
-    private boolean getCard(@RequestBody StoreOrder order) {
-        return storeService.sellCard(order.getUser_id(), order.getCard_id());
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/transaction")
-    private List<StoreTransaction> getCard() {
-        return storeService.getAllTransactions();
     }
 
 }
