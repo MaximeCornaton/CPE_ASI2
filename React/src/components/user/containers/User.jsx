@@ -1,16 +1,18 @@
 import React from 'react';
 import {UserSimpleDisplay} from '../components/UserSimpleDisplay';
+import { useSelector } from 'react-redux';
 
  export const User=(props)=> {
+    let current_user = useSelector(state => state.userReducer.user);
         return ( 
                 <UserSimpleDisplay 
-                    id={props.id}
-                    surname={props.surname}
-                    lastname={props.lastname}
-                    login={props.login}
-                    pwd={props.pwd}
-                    money={props.money} 
-                    img={props.img}>
+                    id={current_user.id}
+                    surname={current_user.surname}
+                    lastname={current_user.lastname}
+                    login={current_user.login}
+                    pwd={current_user.pwd}
+                    money={current_user.money} 
+                    img={current_user.img}>
                 </UserSimpleDisplay>
             );
     }

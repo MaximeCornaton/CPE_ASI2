@@ -1,8 +1,12 @@
 // UserForm.jsx
 import React, { useState } from 'react';
 import { Form, Header, Button } from 'semantic-ui-react';
+import {  useDispatch } from 'react-redux';
+import {update_user_action,submit_user_action } from '../../slices/userSlice';
+
 
 export const UserForm = (props) => {
+
   const [currentUser, setCurrentUser] = useState({
     id: "",
     surname: "",
@@ -13,18 +17,23 @@ export const UserForm = (props) => {
     money: 0,
   });
 
+  const dispatch = useDispatch();
+
   function processInput(event, { valueData }) {
     const target = event.currentTarget;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
-
-    let currentVal = { ...currentUser, [name]: value };
-    setCurrentUser(currentVal);
-    props.handleChange(currentVal);
+    //console.log(event.target.value);
+    let currentVal=currentUser;
+    setCurrentUser({...currentUser, [name]: value});
+    currentVal[name]= value;
+    //props.handleChange(currentVal);
+    dispatch(update_user_action({user:currentVal}));
   }
 
   function submitOrder(data) {
-    props.submitUserHandler(data);
+    // props.submitUserHandler(data);
+    dispatch(submit_user_action({user:currentUser}));
   }
 
   function resetForm() {
