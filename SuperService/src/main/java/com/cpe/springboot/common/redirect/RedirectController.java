@@ -12,6 +12,7 @@ public class RedirectController {
 	public RedirectView redirectToSwaggerUI(RedirectAttributes attributes) {
 		attributes.addFlashAttribute("flashAttribute", "redirectWithRedirectView");
 		attributes.addAttribute("attribute", "redirectWithRedirectView");
+		System.out.println("Redirecting to Swagger UI");
 		return new RedirectView("/swagger-ui.html");
 	}
 }

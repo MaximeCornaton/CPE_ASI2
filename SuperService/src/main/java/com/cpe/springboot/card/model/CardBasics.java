@@ -1,6 +1,6 @@
 package com.cpe.springboot.card.model;
 
-import jakarta.persistence.MappedSuperclass;
+import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public class CardBasics {
