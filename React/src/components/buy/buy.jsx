@@ -74,7 +74,7 @@ export const BuyPage = () => {
                 </Table.Row>
               </Table.Header>
               <Table.Body>
-                {userCards.map((card, index) => (
+                {shopCards.map((card, index) => (
                   <Table.Row
                     key={index}
                     onMouseEnter={() => handleCardHover(card)}
