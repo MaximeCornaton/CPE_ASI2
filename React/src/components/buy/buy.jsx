@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 export const BuyPage = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
-  const [userCards, setShopCards] = useState([]);
+  const [shopCards, setShopCards] = useState([]);
   const currentUser = useSelector(state => state.userReducer.submitted_user);
 
   const fetchShopCards = async () => {
