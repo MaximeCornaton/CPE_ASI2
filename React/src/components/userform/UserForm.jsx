@@ -32,6 +32,8 @@ export const UserForm = () => {
 
   function submitOrder() {
     dispatch(submit_user_action({user:currentUser}));
+    fetchData();
+    
   }
 
   function resetForm() {
@@ -47,6 +49,7 @@ export const UserForm = () => {
     });
   }
 
+  
   return (
     <Form>
       <Header as='h4' dividing>

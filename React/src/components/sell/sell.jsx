@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Container, Header, Table, Image, Button, Grid, Card } from 'semantic-ui-react';
+import { useSelector } from 'react-redux';
 
 export const SellPage = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
+  
+  let currentUser = useSelector(state => state.userReducer.submitted_user);
 
   // Simuler des données de cartes que l'utilisateur possède
   const userCards = [
@@ -45,7 +48,7 @@ export const SellPage = () => {
           <i className="user circle outline icon"></i>
           <div className="content">
             <span id="userNameId">Jdoe</span>
-            <div className="sub header"><span>5000</span>$</div>
+            <div className="sub header"><span>{currentUser.money}</span>$</div>
           </div>
         </h3>
 
