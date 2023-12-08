@@ -4,10 +4,10 @@ import { useSelector } from 'react-redux';
 
 export const BuyPage = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
-  const [userCards, setUserCards] = useState([]);
+  const [userCards, setShopCards] = useState([]);
   const currentUser = useSelector(state => state.userReducer.submitted_user);
 
-  const fetchUserCards = async () => {
+  const fetchShopCards = async () => {
     try {
       const response = await fetch('http://tp.cpe.fr:8083/cards');
       if (!response.ok) {
@@ -16,7 +16,7 @@ export const BuyPage = () => {
       const data = await response.json();
 
       // Mise à jour de l'état userCards avec les nouvelles données
-      setUserCards(data);
+      setShopCards(data);
 
     } catch (error) {
       console.error('Error:', error);
@@ -24,7 +24,7 @@ export const BuyPage = () => {
   };
 
   useEffect(() => {
-    fetchUserCards(); // Appel initial au montage du composant
+    fetchShopCards(); // Appel initial au montage du composant
   }, []);
 
   const handleCardHover = (card) => {

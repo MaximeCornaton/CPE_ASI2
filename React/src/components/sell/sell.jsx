@@ -5,34 +5,10 @@ import { useSelector } from 'react-redux';
 export const SellPage = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
   
+    
   let currentUser = useSelector(state => state.userReducer.submitted_user);
 
-  // Simuler des données de cartes que l'utilisateur possède
-  const userCards = [
-    {
-      name: 'Superman',
-      description: "The origin story of Superman relates that he was born Kal-El on the planet Krypton...",
-      family: 'DC Comic',
-      hp: 50,
-      energy: 100,
-      defence: 80,
-      attack: 100,
-      price: 100,
-      image: 'https://vignette.wikia.nocookie.net/lego/images/4/48/76096_Minifigure_04.jpg/revision/latest/scale-to-width-down/250?cb=20190729133554',
-    },
-    {
-      name: 'Batman',
-      description: "Bruce Wayne, alias Batman, est un héros de fiction appartenant à l'univers de DC Comics...",
-      family: 'DC Comic',
-      hp: 40,
-      energy: 50,
-      defence: 60,
-      attack: 80,
-      price: 60,
-      image: 'https://static.fnac-static.com/multimedia/Images/8F/8F/7D/66/6716815-1505-1540-1/tsp20171122191008/Lego-lgtob12b-lego-batman-movie-lampe-torche-batman.jpg',
-    },
-  ];
-
+  
   const handleCardHover = (card) => {
     setHoveredCard(card);
   };
