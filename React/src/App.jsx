@@ -15,6 +15,7 @@ export const App = () => {
     surname: "",
     login: "",
     pwd: "",
+    repwd: "",
     img: '',
     money: 1000,
   });
@@ -26,14 +27,12 @@ export const App = () => {
       surname: data.surname,
       login: data.login,
       pwd: data.pwd,
+      repwd: data.repwd,
       money: data.money,
       img: data.img,
     });
   }
 
-  function submitUserHandler(data) {
-    console.log("user to submit", data);
-  }
 
   return (
       <Router>
@@ -56,7 +55,6 @@ export const App = () => {
                       <Segment>
                         <UserForm
                           handleChange={handleChange}
-                          submitUserHandler={submitUserHandler}
                         />
                       </Segment>
                     </Grid.Column>

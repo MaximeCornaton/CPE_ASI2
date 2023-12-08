@@ -21,7 +21,7 @@ export const Login = (props) => {
   }
 
   function cancelOrder() {
-    console.log("Login annulée");
+    console.log("Login annulé");
     setLoginInfo({
       username: "",
       password: "",

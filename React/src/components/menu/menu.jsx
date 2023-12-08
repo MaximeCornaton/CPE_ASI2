@@ -1,9 +1,13 @@
 import React from 'react';
 import { Button, Container, Header, Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useState } from 'react';
 
-export const MenuPage = (props) => {
-  const { currentUser } = props;
+
+export const MenuPage = () => {
+
+  let currentUser = useSelector(state => state.userReducer.submitted_user);
 
   return (
     <Container textAlign="center">

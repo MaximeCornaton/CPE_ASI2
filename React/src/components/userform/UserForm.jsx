@@ -5,46 +5,45 @@ import {  useDispatch } from 'react-redux';
 import {update_user_action,submit_user_action } from '../../slices/userSlice';
 
 
-export const UserForm = (props) => {
+export const UserForm = () => {
 
   const [currentUser, setCurrentUser] = useState({
-    id: "",
-    surname: "",
-    lastname: "",
-    img: "",
-    login: "",
-    pwd: "",
-    money: 0,
+    id: '',
+    surname: '', 
+    lastname: '', 
+    img: '', 
+    login: '', 
+    pwd: '', 
+    repwd: '',
+    money: 1000,
   });
 
   const dispatch = useDispatch();
 
-  function processInput(event, { valueData }) {
+  function processInput(event) { //{valueData}
     const target = event.currentTarget;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const value = target.value;
     const name = target.name;
-    //console.log(event.target.value);
+
     let currentVal=currentUser;
     setCurrentUser({...currentUser, [name]: value});
     currentVal[name]= value;
-    //props.handleChange(currentVal);
-    dispatch(update_user_action({user:currentVal}));
   }
 
-  function submitOrder(data) {
-    // props.submitUserHandler(data);
+  function submitOrder() {
     dispatch(submit_user_action({user:currentUser}));
   }
 
   function resetForm() {
     setCurrentUser({
-      id: "",
-      surname: "",
-      lastname: "",
-      img: "",
-      login: "",
-      pwd: "",
-      money: 0,
+      id: '',
+      surname: '',
+      lastname: '',
+      img: '',
+      login: '',
+      pwd: '',
+      repwd: '',
+      money: 1000,
     });
   }
 
@@ -55,11 +54,11 @@ export const UserForm = (props) => {
       </Header>
 
       <Form.Field>
-        <Form.Input fluid label='Name' placeholder='Name' name="name" onChange={processInput} value={currentUser.name} />
+        <Form.Input fluid label='Surname' placeholder='Surname' name="surname" onChange={processInput} value={currentUser.surname} />
       </Form.Field>
 
       <Form.Field>
-        <Form.Input fluid label='Surname' placeholder='Surname' name="surname" onChange={processInput} value={currentUser.surname} />
+        <Form.Input fluid label='Lastname' placeholder='Lastname' name="lastname" onChange={processInput} value={currentUser.name} />
       </Form.Field>
 
       <Form.Field>
