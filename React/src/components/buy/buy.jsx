@@ -23,6 +23,31 @@ export const BuyPage = () => {
     }
   };
 
+  const handleBuyClick = async (card) => {
+    try {
+      const response = await fetch('http://tp.cpe.fr:8083/store/buy', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: currentUser.id, 
+          cardId: card.id, 
+        }),
+      });
+
+      console.log(card)
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+
   useEffect(() => {
     fetchShopCards(); // Appel initial au montage du composant
   }, []);
@@ -41,7 +66,7 @@ export const BuyPage = () => {
         <h3 className="ui right floated header">
           <i className="user circle outline icon"></i>
           <div className="content">
-            <span id="userNameId">{currentUser.login}</span>
+            <span id="userName">{currentUser.lastname}</span>
             <div className="sub header"><span>{currentUser.money}</span>$</div>
           </div>
         </h3>
@@ -91,7 +116,7 @@ export const BuyPage = () => {
                     <Table.Cell>{card.attack}</Table.Cell>
                     <Table.Cell>{card.price}$</Table.Cell>
                     <Table.Cell>
-                      <Button animated="vertical">
+                      <Button animated="vertical" onClick={() => handleBuyClick(card)}>
                         <div className="hidden content">Buy</div>
                         <div className="visible content">
                           <i className="shop icon"></i>

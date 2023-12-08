@@ -32,8 +32,6 @@ export const UserForm = () => {
 
   function submitOrder() {
     dispatch(submit_user_action({user:currentUser}));
-    fetchData();
-    
   }
 
   function resetForm() {

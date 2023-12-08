@@ -1,14 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Header, Table, Image, Button, Grid, Card } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
 
 export const SellPage = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
+  const [userCards, setUserCards] = useState([]);
+  const currentUser = useSelector(state => state.userReducer.submitted_user);
   
-    
-  let currentUser = useSelector(state => state.userReducer.submitted_user);
 
-  
+  const fetchUserCards = async () => {
+    try {
+      const response = await fetch('http://tp.cpe.fr:8083/cards_to_sell');
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+
+      // Mise à jour de l'état userCards avec les nouvelles données
+      setUserCards(data);
+
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const handleSellClick = async (card) => {
+    try {
+      const response = await fetch('http://tp.cpe.fr:8083/store/sell', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: currentUser.id, 
+          cardId: card.id, 
+        }),
+      });
+
+      console.log(card)
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserCards(); // Appel initial au montage du composant
+  }, []);
+
+
   const handleCardHover = (card) => {
     setHoveredCard(card);
   };
@@ -23,7 +67,7 @@ export const SellPage = () => {
         <h3 className="ui right floated header">
           <i className="user circle outline icon"></i>
           <div className="content">
-            <span id="userNameId">Jdoe</span>
+            <span id="userName">{currentUser.lastname}</span>
             <div className="sub header"><span>{currentUser.money}</span>$</div>
           </div>
         </h3>
@@ -73,7 +117,7 @@ export const SellPage = () => {
                     <Table.Cell>{card.attack}</Table.Cell>
                     <Table.Cell>{card.price}$</Table.Cell>
                     <Table.Cell>
-                      <Button animated="vertical">
+                      <Button animated="vertical" onClick={() => handleSellClick(card)}>
                         <div className="hidden content">Sell</div>
                         <div className="visible content">
                           <i className="shop icon"></i>
