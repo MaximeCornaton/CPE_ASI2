@@ -1,35 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Header, Table, Image, Button, Grid, Card } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export const BuyPage = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
+  const [shopCards, setShopCards] = useState([]);
+  const currentUser = useSelector(state => state.userReducer.submitted_user);
 
-  // Simuler des données du store
-  const userCards = [
-    {
-      name: 'Superman',
-      description: "The origin story of Superman relates that he was born Kal-El on the planet Krypton...",
-      family: 'DC Comic',
-      hp: 50,
-      energy: 100,
-      defence: 80,
-      attack: 100,
-      price: 100,
-      image: 'https://vignette.wikia.nocookie.net/lego/images/4/48/76096_Minifigure_04.jpg/revision/latest/scale-to-width-down/250?cb=20190729133554',
-    },
-    {
-      name: 'Batman',
-      description: "Bruce Wayne, alias Batman, est un héros de fiction appartenant à l'univers de DC Comics...",
-      family: 'DC Comic',
-      hp: 40,
-      energy: 50,
-      defence: 60,
-      attack: 80,
-      price: 60,
-      image: 'https://static.fnac-static.com/multimedia/Images/8F/8F/7D/66/6716815-1505-1540-1/tsp20171122191008/Lego-lgtob12b-lego-batman-movie-lampe-torche-batman.jpg',
-    },
-  ];
+  const fetchShopCards = async () => {
+    try {
+      const response = await fetch('http://tp.cpe.fr:8083/cards');
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+
+      // Mise à jour de l'état userCards avec les nouvelles données
+      setShopCards(data);
+
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const handleBuyClick = async (card) => {
+    try {
+      const response = await fetch('http://tp.cpe.fr:8083/store/buy', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: currentUser.id, 
+          cardId: card.id, 
+        }),
+      });
+
+      console.log(card)
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+
+  useEffect(() => {
+    fetchShopCards(); // Appel initial au montage du composant
+  }, []);
 
   const handleCardHover = (card) => {
     setHoveredCard(card);
@@ -45,8 +66,8 @@ export const BuyPage = () => {
         <h3 className="ui right floated header">
           <i className="user circle outline icon"></i>
           <div className="content">
-            <span id="userNameId">Jdoe</span>
-            <div className="sub header"><span>5000</span>$</div>
+            <span id="userName">{currentUser.lastname}</span>
+            <div className="sub header"><span>{currentUser.money}</span>$</div>
           </div>
         </h3>
 
@@ -78,7 +99,7 @@ export const BuyPage = () => {
                 </Table.Row>
               </Table.Header>
               <Table.Body>
-                {userCards.map((card, index) => (
+                {shopCards.map((card, index) => (
                   <Table.Row
                     key={index}
                     onMouseEnter={() => handleCardHover(card)}
@@ -95,7 +116,7 @@ export const BuyPage = () => {
                     <Table.Cell>{card.attack}</Table.Cell>
                     <Table.Cell>{card.price}$</Table.Cell>
                     <Table.Cell>
-                      <Button animated="vertical">
+                      <Button animated="vertical" onClick={() => handleBuyClick(card)}>
                         <div className="hidden content">Buy</div>
                         <div className="visible content">
                           <i className="shop icon"></i>
@@ -130,7 +151,6 @@ export const BuyPage = () => {
 
       <script src="./lib/jquery-3.4.1.min.js"></script>
       <script src="./lib/Semantic-UI-CSS-master/semantic.js"></script>
-
     </Container>
   );
 };
