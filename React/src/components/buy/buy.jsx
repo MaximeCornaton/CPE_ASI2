@@ -130,7 +130,7 @@ export const BuyPage = () => {
           </Grid.Column>
           <Grid.Column width={5}>
             {hoveredCard && (
-              <Card>
+              <Card style={{marginTop: '100px', marginLeft: '200px'}}>
                 <Image src={hoveredCard.image} wrapped ui={false} />
                 <Card.Content>
                   <Card.Header>{hoveredCard.name}</Card.Header>
