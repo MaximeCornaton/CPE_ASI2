@@ -8,14 +8,19 @@ import com.userapp.userservice.models.DTOMapper;
 import com.userapp.userservice.models.UserDTO;
 import com.userapp.userservice.models.UserModel;
 import com.userapp.userservice.repository.UserRepository;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 
 @Service
 public class UserService {
+    @Autowired
+    JmsTemplate jmsTemplate;
+
     private final UserRepository userRepository;
     private final RestTemplate restTemplate;
 
@@ -38,6 +43,17 @@ public class UserService {
     public Optional<UserModel> getUser(Integer id) {
         return userRepository.findById(id);
     }
+
+    public void sendMsg(UserDTO userDTO) {
+        System.out.println("[BUSSERVICE] SEND String MSG=["+userDTO+"]");
+        jmsTemplate.convertAndSend("RESULT_BUS_MNG",userDTO);
+    }
+
+    public void sendMsg(UserDTO userDTO, String busName) {
+        System.out.println("[BUSSERVICE] SEND String MSG=["+userDTO+"] to Bus=["+userDTO+"]");
+        jmsTemplate.convertAndSend(busName,userDTO);
+    }
+
 
     public UserDTO addUser(UserDTO user) {
         UserModel u = fromUDtoToUModel(user);

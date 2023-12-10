@@ -5,6 +5,7 @@ import com.userapp.userservice.models.DTOMapper;
 import com.userapp.userservice.models.UserDTO;
 import com.userapp.userservice.models.UserModel;
 import com.userapp.userservice.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,11 +24,25 @@ import java.util.Optional;
 @RestController
 public class UserRestController {
 
+    @Autowired
     private final UserService userService;
 
     public UserRestController(UserService userService) {
         this.userService=userService;
     }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/sendmsg")
+    public boolean sendInform(@RequestBody UserDTO msg) {
+        userService.sendMsg(msg);
+        return true;
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/sendmsg/{busName}")
+    public boolean sendInform(@RequestBody UserDTO msg, @PathVariable String busName) {
+        userService.sendMsg(msg,busName);
+        return true;
+    }
+
 
     @RequestMapping(method=RequestMethod.GET,value="/users")
     private List<UserDTO> getAllUsers() {
