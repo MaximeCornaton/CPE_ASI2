@@ -39,12 +39,6 @@ echo "Construction du projet Maven..."
 cd UserService/  # Aller dans le répertoire du projet Maven
 mvn package       # Exécuter la commande 'mvn package'
 cd ..             # Retourner au répertoire racine
-cd StoreService/  # Aller dans le répertoire du projet Maven
-mvn package       # Exécuter la commande 'mvn package'
-cd ..             # Retourner au répertoire racine
-cd CardService/   # Aller dans le répertoire du projet Maven
-mvn package       # Exécuter la commande 'mvn package'
-cd ..             # Retourner au répertoire racine
 
 # Démarrage des conteneurs
 echo "Démarrage des conteneurs..."
