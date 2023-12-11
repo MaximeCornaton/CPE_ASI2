@@ -8,9 +8,10 @@ import com.userapp.userservice.models.DTOMapper;
 import com.userapp.userservice.models.UserDTO;
 import com.userapp.userservice.models.UserModel;
 import com.userapp.userservice.repository.UserRepository;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -57,25 +58,26 @@ public class UserService {
 
     public UserDTO addUser(UserDTO user) {
         UserModel u = fromUDtoToUModel(user);
-        // needed to avoid detached entity passed to persist error
-        userRepository.save(u);
-        // Ajouter des cartes en appelant la méthode addCard de SuperService
-        for (int i = 0; i < 5; i++) {
-            ResponseEntity<CardDTO> response = restTemplate.exchange(
-                    "http://super-service/card",
-                    HttpMethod.POST,
-                    new HttpEntity<>(new CardDTO()),
-                    CardDTO.class
-            );
-            CardDTO card = response.getBody();
-            if (card != null) {
-                CardModel cardModel = DTOMapper.fromCardDtoToCardModel(card);
-                uBd.addCard(cardModel);
+
+        // Appeler la méthode getRandCard de SuperService
+        ResponseEntity<List<Integer>> response = restTemplate.exchange(
+                "http://super-service/cardModelService/getRandCard?quantity=5",
+                HttpMethod.POST,
+                null,
+                new ParameterizedTypeReference<List<Integer>>() {}
+        );
+
+        List<Integer> cardIds = response.getBody();
+        if (cardIds != null) {
+            for (Integer cardId : cardIds) {
+                u.addCard(cardId);
             }
         }
+
         UserModel uBd = userRepository.save(u);
         return DTOMapper.fromUserModelToUserDTO(uBd);
     }
+
 
     public UserDTO updateUser(UserDTO user) {
         UserModel u = fromUDtoToUModel(user);
@@ -100,13 +102,7 @@ public class UserService {
 
     private UserModel fromUDtoToUModel(UserDTO user) {
         UserModel u = new UserModel(user);
-        List<CardModel> cardList = new ArrayList<CardModel>();
-        for (Integer cardId : user.getCardList()) {
-            Optional<CardModel> card = cardModelService.getCard(cardId);
-            if (card.isPresent()) {
-                cardList.add(card.get());
-            }
-        }
+        u.addAllCardList(user.getCardList());
         return u;
     }
 }
