@@ -1,6 +1,5 @@
-package com.cpe.springboot.user;
+package com.userapp.userservice.models;
 
-import com.cpe.springboot.card.model.CardModel;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -26,10 +25,14 @@ public class UserModel implements Serializable {
     private String email;
 
 
-    @OneToMany(cascade = CascadeType.ALL,
+    /*@OneToMany(cascade = CascadeType.ALL,
             mappedBy = "user")
     //@OneToMany(mappedBy = "user")
-    private Set<CardModel> cardList = new HashSet<>();
+    private Set<CardModel> cardList = new HashSet<>();*/
+    @ElementCollection
+    @CollectionTable(name = "user_card_ids", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "card_id")
+    private Set<Integer> cardIds = new HashSet<>();;
 
     public UserModel() {
         this.login = "";
@@ -82,27 +85,26 @@ public class UserModel implements Serializable {
         this.pwd = pwd;
     }
 
-    public Set<CardModel> getCardList() {
-        return cardList;
+    public Set<Integer> getCardIds() {
+        return cardIds;
     }
 
-    public void setCardList(Set<CardModel> cardList) {
-        this.cardList = cardList;
+    public void setCardList(Set<Integer> newCardIds) {
+        this.cardIds = newCardIds;
     }
 
-    public void addAllCardList(Collection<CardModel> cardList) {
-        this.cardList.addAll(cardList);
+    public void addAllCardList(Collection<Integer> cardIdsAdded) {
+        this.cardIds.addAll(cardIdsAdded);
     }
 
 
-    public void addCard(CardModel card) {
-        this.cardList.add(card);
-        card.setUser(this);
+    public void addCard(Integer id) {
+        this.cardIds.add(id); // PENSER A SET USER DANS LA CARD D'ID id
     }
 
-    private boolean checkIfCard(CardModel c){
-        for(CardModel c_c: this.cardList){
-            if(c_c.getId()==c.getId()){
+    private boolean checkIfCard(Integer idToCheck){
+        for(Integer id: this.cardIds){
+            if(id == idToCheck){
                 return true;
             }
         }

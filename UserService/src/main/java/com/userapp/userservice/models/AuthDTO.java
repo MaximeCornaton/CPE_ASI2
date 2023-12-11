@@ -1,4 +1,4 @@
-package com.cpe.springboot.user;
+package com.userapp.userservice.models;
 
 public class AuthDTO {
     private String username;
