@@ -3,8 +3,8 @@ import { Form, Header, Button } from 'semantic-ui-react';
 
 export const Login = (props) => {
   const [loginInfo, setLoginInfo] = useState({
-    surname: "",
-    lastname: "",
+    login: "",
+    password: "",
   });
 
   function processInput(event, { valueData }) {
@@ -15,16 +15,34 @@ export const Login = (props) => {
     setLoginInfo({ ...loginInfo, [name]: value });
   }
 
-  function connectOrder() {
-    console.log("Connection OK");
-    // Ajoutez ici la logique pour gérer la connexion
-  }
+  // A FAIRE
+  const connectOrder = async () => {
+      try {
+        const response = await fetch('http://tp.cpe.fr:8083/user', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userLogin: currentUser.login,
+            userPwd: currentUser.password,
+          }),
+        });
+  
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+  
+      } catch (error) {
+        console.error('Error:', error);
+      }
+  };
+  
 
   function cancelOrder() {
     console.log("Login annulé");
     setLoginInfo({
-      surname: "",
-      lastname: "",
+      login: "",
       password: "",
     });
   }
@@ -36,11 +54,7 @@ export const Login = (props) => {
       </Header>
 
       <Form.Field>
-        <Form.Input fluid label='Surname' placeholder='Surname' name="surname" onChange={processInput} value={loginInfo.surname} />
-      </Form.Field>
-
-      <Form.Field>
-        <Form.Input fluid label='Lastname' placeholder='Lastname' name="lastname" onChange={processInput} value={loginInfo.lastname} />
+        <Form.Input fluid label='Login' placeholder='Login' name="login" onChange={processInput} value={loginInfo.login} />
       </Form.Field>
 
       <Form.Field>
