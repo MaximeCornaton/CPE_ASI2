@@ -11,9 +11,10 @@ import { BuyPage } from './components/buy/buy';
 export const App = () => {
   const [currentUser, setCurrentUser] = useState({
     id: 1,
-    name: "",
     surname: "",
+    lastname: "",
     login: "",
+    email: "",
     pwd: "",
     repwd: "",
     img: '',
@@ -23,9 +24,10 @@ export const App = () => {
   function handleChange(data) {
     setCurrentUser({
       id: data.id,
-      name: data.name,
       surname: data.surname,
+      lastname: data.lastname,
       login: data.login,
+      email: data.email,
       pwd: data.pwd,
       repwd: data.repwd,
       money: data.money,

@@ -3,8 +3,8 @@ import { Form, Header, Button } from 'semantic-ui-react';
 
 export const Login = (props) => {
   const [loginInfo, setLoginInfo] = useState({
-    username: "",
-    password: "",
+    surname: "",
+    lastname: "",
   });
 
   function processInput(event, { valueData }) {
@@ -23,7 +23,8 @@ export const Login = (props) => {
   function cancelOrder() {
     console.log("Login annulé");
     setLoginInfo({
-      username: "",
+      surname: "",
+      lastname: "",
       password: "",
     });
   }
@@ -35,11 +36,15 @@ export const Login = (props) => {
       </Header>
 
       <Form.Field>
-        <Form.Input fluid label='Username' placeholder='Username' name="username" onChange={processInput} value={loginInfo.username} />
+        <Form.Input fluid label='Surname' placeholder='Surname' name="surname" onChange={processInput} value={loginInfo.surname} />
       </Form.Field>
 
       <Form.Field>
-        <Form.Input type="password" label="Password" placeholder="Password" onChange={processInput} name="password" value={loginInfo.password} />
+        <Form.Input fluid label='Lastname' placeholder='Lastname' name="lastname" onChange={processInput} value={loginInfo.lastname} />
+      </Form.Field>
+
+      <Form.Field>
+        <Form.Input type="password" label="Password" placeholder="Password" name="password" onChange={processInput} value={loginInfo.password} />
       </Form.Field>
 
       <Button type='reset' onClick={cancelOrder}>Cancel</Button>
