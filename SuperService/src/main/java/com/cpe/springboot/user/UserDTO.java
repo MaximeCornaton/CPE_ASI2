@@ -1,11 +1,12 @@
 package com.cpe.springboot.user;
 
+import com.cpe.springboot.card.model.CardModel;
+
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.cpe.springboot.card.model.CardModel;
-
-public class UserDTO {
+public class UserDTO implements Serializable {
     private Integer id;
     private String login;
     private String pwd;
@@ -16,19 +17,6 @@ public class UserDTO {
     private Set<Integer> cardList = new HashSet<>();
 
     public UserDTO() {
-    }
-
-    public UserDTO(UserModel user) {
-        this.id = user.getId();
-        this.login = user.getLogin();
-        this.pwd = user.getPwd();
-        this.account = user.getAccount();
-        this.lastName = user.getLastName();
-        this.surName = user.getSurName();
-        this.email = user.getEmail();
-        for (CardModel card : user.getCardList()) {
-            this.cardList.add(card.getId());
-        }
     }
 
     public Integer getId() {
@@ -95,4 +83,7 @@ public class UserDTO {
         this.email = email;
     }
 
+    public void addCard(CardModel c) {
+        cardList.add(c.getId());
+    }
 }

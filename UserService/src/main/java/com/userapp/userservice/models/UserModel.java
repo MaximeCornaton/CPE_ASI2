@@ -32,7 +32,7 @@ public class UserModel implements Serializable {
     @ElementCollection
     @CollectionTable(name = "user_card_ids", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "card_id")
-    private Set<Integer> cardIds = new HashSet<>();;
+    private Set<Integer> cardIds = new HashSet<>();
 
     public UserModel() {
         this.login = "";

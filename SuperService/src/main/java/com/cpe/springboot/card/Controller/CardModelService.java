@@ -51,8 +51,8 @@ public class CardModelService {
 		cardRepository.deleteById(id);
 	}
 	
-	public List<CardModel> getRandCard(int nbr){
-		List<CardModel> cardList=new ArrayList<>();
+	public List<Integer> getRandCard(int nbr, int userId){
+		List<Integer> cardList=new ArrayList<>();
 		for(int i=0;i<nbr;i++) {
 			CardReference currentCardRef=cardRefService.getRandCardRef();
 			CardModel currentCard=new CardModel(currentCardRef);
@@ -61,16 +61,17 @@ public class CardModelService {
 			currentCard.setEnergy(100);
 			currentCard.setHp(rand.nextFloat()*100);
 			currentCard.setPrice(currentCard.computePrice());
+			currentCard.setUser(userId);
 			//save new card before sending for user creation
-			//this.addCard(currentCard);
-			cardList.add(currentCard);
+			this.addCard(currentCard);
+			cardList.add(currentCard.getId());
 		}
 		return cardList;
 	}
 
 
 	public List<CardModel> getAllCardToSell(){
-		return this.cardRepository.findByUser(null);
+		return this.cardRepository.findByUserId(null);
 	}
 }
 

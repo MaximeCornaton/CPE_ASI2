@@ -1,8 +1,7 @@
 package com.cpe.springboot.common.tools;
+
 import com.cpe.springboot.card.model.CardDTO;
 import com.cpe.springboot.card.model.CardModel;
-import com.cpe.springboot.user.UserDTO;
-import com.cpe.springboot.user.UserModel;
 
 public class DTOMapper {
 	
@@ -20,12 +19,6 @@ public class DTOMapper {
 		cm.setPrice(cD.getPrice());
 		cm.setId(cD.getId());
 		return cm;
-	}
-	
-	
-	public static UserDTO fromUserModelToUserDTO(UserModel uM) {
-		UserDTO uDto =new UserDTO(uM);
-		return uDto;
 	}
 	
 }

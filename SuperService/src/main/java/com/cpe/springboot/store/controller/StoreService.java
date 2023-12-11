@@ -1,18 +1,20 @@
 package com.cpe.springboot.store.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.cpe.springboot.card.Controller.CardModelService;
 import com.cpe.springboot.card.model.CardModel;
 import com.cpe.springboot.store.model.StoreAction;
 import com.cpe.springboot.store.model.StoreTransaction;
-import com.cpe.springboot.user.UserModel;
+import com.cpe.springboot.user.UserDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StoreService {
@@ -31,7 +33,14 @@ public class StoreService {
 	}
 
 	public boolean buyCard(Integer user_id, Integer card_id) {
-		UserModel u = restTemplate.getForObject(userServiceUrl + "/users/" + user_id, UserModel.class);
+		//UserModel u = restTemplate.getForObject(userServiceUrl + "/users/" + user_id, UserModel.class);
+		ResponseEntity<UserDTO> response = restTemplate.exchange(
+				"http://user-service/user/" + user_id,
+				HttpMethod.GET,
+				null,
+				new ParameterizedTypeReference<UserDTO>() {}
+		);
+		UserDTO u = response.getBody();
 		Optional<CardModel> c_option = cardService.getCard(card_id);
 		if (u == null || !c_option.isPresent()) {
 			return false;
@@ -50,7 +59,14 @@ public class StoreService {
 	}
 
 	public boolean sellCard(Integer user_id, Integer card_id) {
-		UserModel u = restTemplate.getForObject(userServiceUrl + "/users/" + user_id, UserModel.class);
+		//UserModel u = restTemplate.getForObject(userServiceUrl + "/users/" + user_id, UserModel.class);
+		ResponseEntity<UserDTO> response = restTemplate.exchange(
+				"http://user-service/user/" + user_id,
+				HttpMethod.GET,
+				null,
+				new ParameterizedTypeReference<UserDTO>() {}
+		);
+		UserDTO u = response.getBody();
 		Optional<CardModel> c_option = cardService.getCard(card_id);
 		if (u == null || !c_option.isPresent()) {
 			return false;

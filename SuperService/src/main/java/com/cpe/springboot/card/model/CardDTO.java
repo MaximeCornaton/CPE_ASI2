@@ -22,7 +22,7 @@ public class CardDTO extends CardBasics {
 		this.attack = cModel.getAttack();
 		this.price = cModel.getPrice();
 		if (cModel.getUser() != null) {
-			this.userId = cModel.getUser().getId();
+			this.userId = cModel.getUser();
 		} else {
 			this.userId = null;
 		}

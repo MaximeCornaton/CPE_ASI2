@@ -1,7 +1,6 @@
 package com.cpe.springboot.card.model;
 
 import com.cpe.springboot.store.model.StoreTransaction;
-import com.cpe.springboot.user.UserModel;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -19,9 +18,9 @@ public class CardModel extends CardBasics{
 	private float attack;
 	private float price;
 
-	@ManyToOne
-	@JoinColumn
-	private UserModel user;
+/*	@ManyToOne
+	@JoinColumn*/
+	private Integer userId;
 
 	@ManyToOne
 	@JoinColumn
@@ -86,12 +85,12 @@ public class CardModel extends CardBasics{
 		this.price = price;
 	}
 
-	public UserModel getUser() {
-		return user;
+	public Integer getUser() {
+		return userId;
 	}
 
-	public void setUser(UserModel user) {
-		this.user = user;
+	public void setUser(Integer id) {
+		this.userId = id;
 	}
 
 	public void setStore(StoreTransaction storeModel) {

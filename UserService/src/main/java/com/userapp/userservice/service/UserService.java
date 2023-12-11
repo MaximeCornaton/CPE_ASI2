@@ -61,7 +61,7 @@ public class UserService {
 
         // Appeler la méthode getRandCard de SuperService
         ResponseEntity<List<Integer>> response = restTemplate.exchange(
-                "http://super-service/cardModelService/getRandCard?quantity=5",
+                "http://super-service/cardModelService/getRandCard?quantity=5?userId=" + u.getId(),
                 HttpMethod.POST,
                 null,
                 new ParameterizedTypeReference<List<Integer>>() {}
