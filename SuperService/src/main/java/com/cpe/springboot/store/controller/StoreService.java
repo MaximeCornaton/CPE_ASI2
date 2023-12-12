@@ -20,7 +20,7 @@ import java.util.Optional;
 public class StoreService {
 
 	private final RestTemplate restTemplate;
-	private final String userServiceUrl = "http://userservice:8081"; // URL du UserService
+	private final String userServiceUrl = "http://localhost:8082"; // URL du UserService
 
 	private final CardModelService cardService;
 	private final StoreRepository storeRepository;
@@ -35,7 +35,7 @@ public class StoreService {
 	public boolean buyCard(Integer user_id, Integer card_id) {
 		//UserModel u = restTemplate.getForObject(userServiceUrl + "/users/" + user_id, UserModel.class);
 		ResponseEntity<UserDTO> response = restTemplate.exchange(
-				"http://user-service/user/" + user_id,
+				"http://localhost:8082/user/" + user_id,
 				HttpMethod.GET,
 				null,
 				new ParameterizedTypeReference<UserDTO>() {}
@@ -61,7 +61,7 @@ public class StoreService {
 	public boolean sellCard(Integer user_id, Integer card_id) {
 		//UserModel u = restTemplate.getForObject(userServiceUrl + "/users/" + user_id, UserModel.class);
 		ResponseEntity<UserDTO> response = restTemplate.exchange(
-				"http://user-service/user/" + user_id,
+				"http://localhost:8082" + user_id,
 				HttpMethod.GET,
 				null,
 				new ParameterizedTypeReference<UserDTO>() {}
