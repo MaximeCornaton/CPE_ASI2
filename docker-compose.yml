@@ -15,6 +15,13 @@ services:
     ports:
       - "8082:8082"
 
+  notificationservice:
+    build:
+      context: ./notificationservice
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8083"
+
   staticservice:
     build:
       context: ./StaticService
@@ -32,3 +39,4 @@ services:
       - userservice
       - staticservice
       - superservice
+      - notificationservice
