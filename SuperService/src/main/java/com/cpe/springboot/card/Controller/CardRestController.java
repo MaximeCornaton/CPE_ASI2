@@ -14,7 +14,6 @@ import java.util.Optional;
 //ONLY FOR TEST NEED ALSO TO ALLOW CROOS ORIGIN ON WEB BROWSER SIDE
 @CrossOrigin
 @RestController
-@CrossOrigin(origins = "http://localhost:8082")
 public class CardRestController {
 
 	private final CardModelService cardModelService;

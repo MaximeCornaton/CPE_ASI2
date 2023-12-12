@@ -22,7 +22,6 @@ import java.util.Optional;
 //ONLY FOR TEST NEED ALSO TO ALLOW CROOS ORIGIN ON WEB BROWSER SIDE
 @CrossOrigin
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
 public class UserRestController {
 
     @Autowired
