@@ -6,28 +6,28 @@ services:
       context: ./UserService
       dockerfile: Dockerfile
     ports:
-      - "8082:8082"
+      - "8082:8080"
 
   superservice:
     build:
       context: ./SuperService
       dockerfile: Dockerfile
     ports:
-      - "8083:8083"
+      - "8083:8080"
 
   notificationservice:
     build:
       context: ./NotificationService
       dockerfile: Dockerfile
     ports:
-      - "8084:8084"
+      - "8084:8080"
 
   staticservice:
     build:
       context: ./StaticService
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "3000:8080"
 
   nginx:
     image: nginx:latest
