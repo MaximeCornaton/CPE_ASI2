@@ -1,4 +1,4 @@
-package com.userapp.userservice.rest;
+package com.userapp.userservice.controller;
 
 import com.userapp.userservice.models.AuthDTO;
 import com.userapp.userservice.models.DTOMapper;
