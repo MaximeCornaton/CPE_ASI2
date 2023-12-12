@@ -10,11 +10,13 @@ export const SellPage = () => {
 
   const fetchUserCards = async () => {
     try {
-      const response = await fetch('http://tp.cpe.fr:8083/cards_to_sell');
+      const response = await fetch('http://localhost:8080/cards_by_user/1');
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       const data = await response.json();
+
+      console.log(response)
 
       // Mise à jour de l'état userCards avec les nouvelles données
       setUserCards(data);
@@ -26,7 +28,7 @@ export const SellPage = () => {
 
   const handleSellClick = async (card) => {
     try {
-      const response = await fetch('http://tp.cpe.fr:8083/store/sell', {
+      const response = await fetch('http://localhost:8083/store/sell', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -8,7 +8,7 @@ import {update_user_action,submit_user_action } from '../../slices/userSlice';
 export const UserForm = () => {
 
   const [currentUser, setCurrentUser] = useState({
-    id: '',
+    id: 1,
     surname: '', 
     lastname: '', 
     img: '', 
@@ -38,7 +38,7 @@ export const UserForm = () => {
     if (currentUser.pwd === currentUser.repwd) {
 
       // Créer le user dans la BDD
-      //createUser()
+      createUser()
 
       dispatch(submit_user_action({ user: currentUser }));
 
@@ -66,7 +66,7 @@ export const UserForm = () => {
 
   const createUser = async () => {
     try {
-      const response = await fetch('http://tp.cpe.fr:8083/user', {
+      const response = await fetch('http://localhost:8082/sendmsg', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -81,6 +81,8 @@ export const UserForm = () => {
           userAccount: currentUser.money
         }),
       });
+
+      console.log(response)
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
