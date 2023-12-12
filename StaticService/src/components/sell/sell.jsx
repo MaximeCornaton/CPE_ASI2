@@ -10,7 +10,7 @@ export const SellPage = () => {
 
   const fetchUserCards = async () => {
     try {
-      const response = await fetch('http://localhost:8080/cards_by_user/1');
+      const response = await fetch('http://tp.cpe.fr:8083/cards_to_sell');
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
