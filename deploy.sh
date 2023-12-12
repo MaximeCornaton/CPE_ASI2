@@ -35,10 +35,17 @@ echo "Construction des images Docker..."
 docker-compose build
 
 # Construction du projet Maven
-#echo "Construction du projet Maven..."
-#cd UserService/  # Aller dans le répertoire du projet Maven
-#mvn package       # Exécuter la commande 'mvn package'
-#cd ..             # Retourner au répertoire racine
+echo "Construction du projet Maven..."
+cd UserService/  # Aller dans le répertoire du projet Maven
+mvn package       # Exécuter la commande 'mvn package'
+cd ..             # Retourner au répertoire racine
+cd SuperService/  # Aller dans le répertoire du projet Maven
+mvn package       # Exécuter la commande 'mvn package'
+cd ..             # Retourner au répertoire racine
+cd NotificationService/  # Aller dans le répertoire du projet Maven
+mvn package       # Exécuter la commande 'mvn package'
+cd ..             # Retourner au répertoire racine
+
 
 # Démarrage des conteneurs
 echo "Démarrage des conteneurs..."
