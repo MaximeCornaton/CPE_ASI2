@@ -9,7 +9,7 @@ WORKDIR /app/SuperService
 COPY ./target/SuperService-0.0.1-SNAPSHOT.jar SuperService.jar
 
 # Port sur lequel l'application Spring Boot écoute
-EXPOSE 8082
+EXPOSE 8083
 
 # Commande pour démarrer l'application Spring Boot lors du démarrage du conteneur
 CMD ["java", "-jar", "SuperService.jar"]

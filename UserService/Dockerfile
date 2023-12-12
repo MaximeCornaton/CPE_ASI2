@@ -9,7 +9,7 @@ WORKDIR /app/UserService
 COPY ./target/UserService-0.0.1-SNAPSHOT.jar UserService.jar
 
 # Port sur lequel l'application Spring Boot écoute
-EXPOSE 8081
+EXPOSE 8082
 
 # Commande pour démarrer l'application Spring Boot lors du démarrage du conteneur
 CMD ["java", "-jar", "UserService.jar"]
