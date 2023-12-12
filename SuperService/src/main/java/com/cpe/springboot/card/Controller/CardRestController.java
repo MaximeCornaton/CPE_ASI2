@@ -75,5 +75,9 @@ public class CardRestController {
 		return list;
 
 	}
+	@RequestMapping(method=RequestMethod.GET, value="/cards_by_user/{userId}")
+	private List<CardDTO> getCardsByUserId(@PathVariable String userId) {
+		return cardModelService.getCardsByUserId(Integer.valueOf(userId));
+	}
 	
 }

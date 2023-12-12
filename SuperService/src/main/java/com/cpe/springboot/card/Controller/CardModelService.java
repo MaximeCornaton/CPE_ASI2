@@ -69,6 +69,15 @@ public class CardModelService {
 		return cardList;
 	}
 
+	public List<CardDTO> getCardsByUserId(Integer userId){
+		List<CardModel> cards = cardRepository.findByUserId(userId);
+		List<CardDTO> cardDTOs = new ArrayList<>();
+		for (CardModel card : cards) {
+			cardDTOs.add(DTOMapper.fromCardModelToCardDTO(card));
+		}
+		return cardDTOs;
+	}
+
 
 	public List<CardModel> getAllCardToSell(){
 		return this.cardRepository.findByUserId(null);
